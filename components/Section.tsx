@@ -1,4 +1,5 @@
 import Container from "./Container";
+import Collectible from "./game/Collectible";
 
 type Props = {
   id: string;
@@ -32,6 +33,7 @@ export default function Section({ id, eyebrow, heading, alt = false, children }:
             aria-hidden="true"
             className="from-border h-px flex-1 bg-linear-to-r to-transparent"
           />
+          <Collectible id={id} />
         </div>
         {children}
       </Container>

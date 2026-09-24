@@ -1,54 +1,62 @@
 @import "tailwindcss";
 
 /*
- * Design tokens. Values follow Reference A (beige canvas, slate ink, steel-blue accent),
- * with muted/accent nudged darker so all text meets WCAG AA (4.5:1). Dark mode is derived
- * from the same palette and follows the system preference.
+ * Design tokens: avocado palette. Pale "flesh" canvas, deep "skin" greens for ink/accent,
+ * and a warm "pit" brown for playful highlights. All text pairs meet WCAG AA (4.5:1).
+ * Dark mode follows the system preference.
  */
 :root {
-  --bg: #f3e9d8;
-  --bg-alt: #efe1cb;
-  --surface: #fbf6ec;
-  --surface-alt: #f2ecdf;
-  --text: #212c38;
-  --text-soft: #4c5a68;
-  --muted: #56626f;
-  --accent: #3a6594;
-  --accent-deep: #2a4a70;
-  --accent-soft: #bdd1e6;
-  --on-accent: #f5f9fd;
-  --border: #ded4c2;
-  --glow-1: #f7ecd7;
-  --glow-2: #f0e0c6;
-  --portrait-from: #eaf1f8;
-  --portrait-to: #c2d5e7;
-  --shadow: 0 18px 40px -24px rgba(28, 42, 64, 0.42);
-  --shadow-sm: 0 8px 22px -16px rgba(28, 42, 64, 0.45);
-  --nav-bg: rgba(243, 233, 216, 0.82);
+  --bg: #f3f6e4;
+  --bg-alt: #e9efd2;
+  --surface: #fbfcf3;
+  --surface-alt: #eef3dc;
+  --text: #1f2a17;
+  --text-soft: #465238;
+  --muted: #56624a;
+  --accent: #44701f;
+  --accent-deep: #2f5214;
+  --accent-soft: #c5d99a;
+  --on-accent: #f7fbef;
+  --border: #d9e2bf;
+  --glow-1: #eaf2c8;
+  --glow-2: #f6f0cf;
+  --skin: #3d5a1e;
+  --flesh-in: #f6f4bd;
+  --flesh-out: #a9c95c;
+  --pit: #6b3f1f;
+  --pit-light: #9a6236;
+  --on-pit: #fbf3dc;
+  --shadow: 0 18px 40px -24px rgba(38, 58, 20, 0.42);
+  --shadow-sm: 0 8px 22px -16px rgba(38, 58, 20, 0.45);
+  --nav-bg: rgba(243, 246, 228, 0.82);
   --nav-h: 64px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #12181f;
-    --bg-alt: #161d25;
-    --surface: #1a222b;
-    --surface-alt: #212b36;
-    --text: #ece4d6;
-    --text-soft: #b9c2cc;
-    --muted: #97a3af;
-    --accent: #8db4dd;
-    --accent-deep: #b3cde9;
-    --accent-soft: #34506e;
-    --on-accent: #10161d;
-    --border: #2a3541;
-    --glow-1: #1a2230;
-    --glow-2: #17202b;
-    --portrait-from: #2a3d52;
-    --portrait-to: #1b2836;
+    --bg: #121810;
+    --bg-alt: #161d13;
+    --surface: #1b2417;
+    --surface-alt: #222d1c;
+    --text: #eaf0da;
+    --text-soft: #bcc6aa;
+    --muted: #9aa58a;
+    --accent: #a9d46f;
+    --accent-deep: #c6e59a;
+    --accent-soft: #3b5226;
+    --on-accent: #10160c;
+    --border: #2b3823;
+    --glow-1: #1a2415;
+    --glow-2: #1d2212;
+    --skin: #22330f;
+    --flesh-in: #d9dc96;
+    --flesh-out: #7fa33c;
+    --pit: #5e371a;
+    --pit-light: #8a5a31;
+    --on-pit: #fbf3dc;
     --shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.7);
     --shadow-sm: 0 8px 22px -16px rgba(0, 0, 0, 0.75);
-    --nav-bg: rgba(18, 24, 31, 0.82);
+    --nav-bg: rgba(18, 24, 16, 0.82);
   }
 }
 
@@ -65,6 +73,8 @@
   --color-accent-soft: var(--accent-soft);
   --color-on-accent: var(--on-accent);
   --color-border: var(--border);
+  --color-pit: var(--pit);
+  --color-on-pit: var(--on-pit);
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-display: var(--font-fraunces), Georgia, serif;
   --shadow-card: var(--shadow);
@@ -122,6 +132,66 @@
 
 .hero-fade {
   animation: hero-in 0.7s ease-out both;
+}
+
+/* ---------- Guac quest (game layer) ---------- */
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-14deg) scale(1.1);
+  }
+  75% {
+    transform: rotate(14deg) scale(1.1);
+  }
+}
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.6) rotate(-10deg);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes confetti-fall {
+  0% {
+    transform: translate3d(0, -10vh, 0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(var(--drift), 110vh, 0) rotate(var(--spin));
+    opacity: 0.9;
+  }
+}
+.avo-idle:hover,
+.avo-idle:focus-visible {
+  animation: wiggle 0.5s ease-in-out;
+}
+.avo-pop {
+  animation: pop 0.45s ease-out;
+}
+.toast-in {
+  animation: toast-in 0.25s ease-out both;
+}
+.confetti-piece {
+  position: fixed;
+  top: 0;
+  animation: confetti-fall var(--dur) cubic-bezier(0.25, 0.6, 0.4, 1) var(--delay) both;
 }
 
 @media (prefers-reduced-motion: reduce) {

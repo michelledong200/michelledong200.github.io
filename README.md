@@ -32,12 +32,18 @@ To preview the production build: `npm run build && npx serve out`.
 
 Colors and fonts are CSS variables at the top of [`app/globals.css`](app/globals.css), with separate light and dark values. Dark mode follows the system setting.
 
+## Guac quest (the game)
+
+Every section hides a 🥑. Visitors click them to fill the counter in the bottom-right corner, climb ranks from Seed to Guac master, and get avocado confetti plus an "Email me" prompt when they find all eight. Progress is saved in their browser, and the counter's panel has a reset button.
+
+All game text (ranks, cheers, finale message, which sections have avocados) lives under `game` in `content/site.ts`. To add an avocado to a new section, add its section `id` to `game.spots`.
+
 ## Swapping the photo
 
 Put a square headshot at **`public/profile.jpg`** (at least 560×560). The site checks for it at build time:
 
 - If it exists, it's used in the hero and as the social-share (Open Graph/Twitter) image.
-- If it's missing, the hero shows an "MD" initials circle and no share image is advertised.
+- If it's missing, the hero shows an avocado half with "MD" on the pit and no share image is advertised.
 
 To change the favicon, replace `app/icon.png` (a square PNG, 64×64 or larger).
 
@@ -62,16 +68,15 @@ Search the code for `TODO(michelle)` to find each one.
 
 - [ ] **Email:** replace `TODO@berkeley.edu` in `content/site.ts` (used by the hero, the Email link, and "Email me").
 - [ ] **Headshot:** add `public/profile.jpg`.
-- [ ] **Favicon:** replace the placeholder `app/icon.png`.
+- [ ] **Favicon:** replace the placeholder avocado `app/icon.png` (optional).
 - [ ] **Hero meta:** confirm pronouns ("She/Her") and class year ("Class of 2030").
-- [ ] **About stats:** keep or swap "5 projects", "4 sports", "A in C++".
+- [ ] **About stats:** keep or swap "5 projects" and "4 sports".
 - [ ] **Shoreline Lake:** add numbers (students taught, age range) to the bullets.
 - [ ] **Coere AI:** add a GitHub or live-demo link.
-- [ ] **Walkie:** add a GitHub or live-demo link.
-- [ ] **Skin Disease Classification:** describe the dataset, model, and accuracy.
-- [ ] **AI Study Assistant:** describe what it does.
-- [ ] **SkyRL (fork):** describe your contribution.
+- [ ] **GuacBand:** add a GitHub or demo link.
+- [ ] **Skin Disease Classification:** add bullets on the dataset, model, and accuracy.
+- [ ] **AI Study Assistant:** add bullets on what it does.
+- [ ] **SkyRL (fork):** add bullets on your contribution.
 - [ ] **Skills:** add or remove items in each group.
-- [ ] **Consulting club:** replace the placeholder name.
 - [ ] **Education:** confirm the exact major/program name and graduation year.
 - [ ] **Resume (optional):** add `public/resume.pdf` and a link to it in `content/site.ts` if you want one.

@@ -13,9 +13,12 @@ export type ExperienceItem = {
 export type Project = {
   category: string;
   title: string;
-  description: string;
+  bullets: string[];
   tags: string[];
   links: Link[];
+  /** Featured projects span the full grid width and show a status badge. */
+  featured?: boolean;
+  status?: string;
 };
 export type SkillGroup = { title: string; icon: string; items: string[] };
 export type Involvement = {
@@ -24,6 +27,8 @@ export type Involvement = {
   role: string;
   description: string;
 };
+
+export type GameSpot = { id: string; label: string };
 
 export type Site = {
   name: string;
@@ -70,6 +75,18 @@ export type Site = {
     completed: string[];
   };
   contact: { heading: string; blurb: string; cta: string };
+  game: {
+    title: string;
+    intro: string;
+    collectible: string;
+    /** One hidden avocado per entry; ids match section ids ("top" is the hero). */
+    spots: GameSpot[];
+    /** Rank names by avocados found; each applies from its `min` count upward. */
+    ranks: { min: number; name: string }[];
+    cheers: string[];
+    finale: { title: string; body: string; cta: string };
+    reset: string;
+  };
 };
 
 export const site: Site = {
@@ -113,7 +130,6 @@ export const site: Site = {
     stats: [
       { value: "5", label: "Projects on GitHub & in progress" },
       { value: "4", label: "Sports I play" },
-      { value: "A", label: "in C++" },
     ],
   },
 
@@ -138,31 +154,40 @@ export const site: Site = {
 
   projects: {
     eyebrow: "Projects",
-    heading: "Things I've built",
+    heading: "Current projects",
     moreHeading: "More on GitHub",
     viewAllLabel: "View all repositories",
     items: [
       {
-        category: "AI · Product",
-        title: "Coere AI",
-        description:
-          "An AI-native platform that optimizes LLM context-window usage by compressing user data into summaries that transfer across models.",
-        tags: ["LLMs", "Python", "Product"],
-        links: [], // TODO(michelle): add a GitHub or live demo link
+        category: "Hardware · ML",
+        title: "GuacBand",
+        featured: true,
+        status: "In progress",
+        bullets: [
+          "Armband used for hand gesture prediction.",
+          "Uses 4 magnetic touch sensors to collect data from forearm muscle movements.",
+          "Trains our model on the data after signal processing.",
+          "Processes live signals and classifies gestures.",
+          "Used for gaming and as input for other applications.",
+        ],
+        tags: ["Wearables", "Sensors", "Signal processing", "Machine learning"],
+        links: [], // TODO(michelle): add a GitHub or demo link for GuacBand
       },
       {
-        category: "Mobile · Maps",
-        title: "Walkie",
-        description:
-          "Indoor campus navigation for universities: find a café, lecture hall, or club room inside complex buildings, with indoor positioning that works without GPS and crowdsourced paths.",
-        tags: ["Cross-platform", "PostgreSQL", "PostGIS"],
+        category: "AI · Product",
+        title: "Coere AI",
+        bullets: [
+          "AI-native platform that optimizes LLM context-window usage.",
+          "Compresses user data into summaries that transfer across models.",
+        ],
+        tags: ["LLMs", "Python", "Product"],
         links: [], // TODO(michelle): add a GitHub or live demo link
       },
       {
         category: "Machine learning",
         title: "Skin Disease Classification",
-        // TODO(michelle): describe dataset, model, accuracy.
-        description: "Image classification model for identifying skin conditions.",
+        // TODO(michelle): add bullets on the dataset, model, and accuracy.
+        bullets: ["Image classification model for identifying skin conditions."],
         tags: ["Python", "Jupyter"],
         links: [
           {
@@ -174,8 +199,8 @@ export const site: Site = {
       {
         category: "AI · Education",
         title: "AI Study Assistant",
-        // TODO(michelle): describe what it does.
-        description: "An AI-powered assistant that helps students study.",
+        // TODO(michelle): add bullets on what it does.
+        bullets: ["AI-powered assistant that helps students study."],
         tags: ["Python", "LLMs"],
         links: [
           {
@@ -187,9 +212,10 @@ export const site: Site = {
       {
         category: "Research · RL",
         title: "SkyRL (fork)",
-        // TODO(michelle): describe your contribution.
-        description:
+        // TODO(michelle): add bullets on your contribution.
+        bullets: [
           "Working with SkyRL, a modular full-stack reinforcement-learning library for LLMs.",
+        ],
         tags: ["Python", "RL"],
         links: [
           {
@@ -227,12 +253,6 @@ export const site: Site = {
         description: "Berkeley's project-based software development club.",
       },
       {
-        icon: "📊",
-        name: "Consulting club", // TODO(michelle): consulting club name
-        role: "Member",
-        description: "Student consulting club working with real clients.",
-      },
-      {
         icon: "🎾",
         name: "Tennis",
         role: "Player",
@@ -264,5 +284,36 @@ export const site: Site = {
     blurb:
       "Open to internships, project collaborations, and coffee chats. Email is the fastest way to reach me.",
     cta: "Email me",
+  },
+
+  game: {
+    title: "Guac quest",
+    intro: "There's a hidden 🥑 in every section. Find them all to ripen your rank.",
+    collectible: "avocado",
+    spots: [
+      { id: "top", label: "Intro" },
+      { id: "about", label: "About" },
+      { id: "experience", label: "Experience" },
+      { id: "projects", label: "Projects" },
+      { id: "skills", label: "Skills" },
+      { id: "involvement", label: "Involvement" },
+      { id: "education", label: "Education" },
+      { id: "contact", label: "Contact" },
+    ],
+    ranks: [
+      { min: 0, name: "Seed" },
+      { min: 1, name: "Sprout" },
+      { min: 3, name: "Sapling" },
+      { min: 5, name: "Ripening" },
+      { min: 7, name: "Almost ripe" },
+      { min: 8, name: "Guac master" },
+    ],
+    cheers: ["Nice pick!", "Ripe find!", "Smashing!", "Avo-cado you go!", "Holy guac!"],
+    finale: {
+      title: "Holy guacamole! 🎉",
+      body: "You found every avocado. Now you have to say hi.",
+      cta: "Email me",
+    },
+    reset: "Replant avocados",
   },
 };

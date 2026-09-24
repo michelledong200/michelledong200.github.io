@@ -5,7 +5,7 @@ export default function Involvement() {
   const { involvement } = site;
   return (
     <Section id="involvement" eyebrow={involvement.eyebrow} heading={involvement.heading}>
-      <ul className="grid gap-5 sm:grid-cols-2">
+      <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {involvement.items.map((item) => (
           <li
             key={item.name}

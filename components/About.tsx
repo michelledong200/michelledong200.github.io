@@ -8,7 +8,7 @@ export default function About() {
       <div className="border-border bg-surface text-text-soft shadow-card-sm rounded-[12px] border px-6 py-7 text-[17.5px] sm:px-9 sm:py-8">
         <p className="max-w-[70ch]">{about.bio}</p>
       </div>
-      <dl className="mt-6 grid gap-4 sm:grid-cols-3">
+      <dl className="mt-6 grid gap-4 sm:grid-cols-2">
         {about.stats.map((stat) => (
           <div
             key={stat.label}

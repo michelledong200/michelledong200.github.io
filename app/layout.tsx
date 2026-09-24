@@ -4,6 +4,7 @@ import { site } from "@/content/site";
 import { hasProfilePhoto, PROFILE_SRC } from "@/lib/profile";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import GuacQuest from "@/components/game/GuacQuest";
 import "./globals.css";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
@@ -43,8 +44,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   viewportFit: "cover",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f3e9d8" },
-    { media: "(prefers-color-scheme: dark)", color: "#12181f" },
+    { media: "(prefers-color-scheme: light)", color: "#f3f6e4" },
+    { media: "(prefers-color-scheme: dark)", color: "#121810" },
   ],
 };
 
@@ -63,6 +64,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <Footer />
+        <GuacQuest />
       </body>
     </html>
   );
