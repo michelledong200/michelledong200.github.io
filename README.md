@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# michelledong200.github.io
 
-## Getting Started
+Michelle Dong's personal portfolio. It's a single-page Next.js site (App Router, TypeScript, Tailwind CSS v4) exported as static files and hosted on GitHub Pages at **https://michelledong200.github.io/**.
 
-First, run the development server:
+## Run locally
+
+Requires Node.js LTS (20+).
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Other scripts:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Command             | What it does                                       |
+| ------------------- | -------------------------------------------------- |
+| `npm run build`     | Static export to `out/` (what GitHub Pages serves) |
+| `npm run lint`      | ESLint                                             |
+| `npm run typecheck` | TypeScript, no emit                                |
+| `npm run format`    | Prettier (with Tailwind class sorting)             |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To preview the production build: `npm run build && npx serve out`.
 
-## Learn More
+## Editing content
 
-To learn more about Next.js, take a look at the following resources:
+**All copy lives in [`content/site.ts`](content/site.ts).** Components never hardcode personal text. Change a value there and the page updates. That file covers the hero, about text and stats, experience, projects, skills, clubs, education, contact text, and nav links.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Add a project:** append an object to `projects.items`. Only links you list get rendered, so leave `links: []` if there's nothing to show yet.
+- **Add a job:** append to `experience.items` (newest first).
+- The **"More on GitHub"** list is fetched from the GitHub API at build time. It shows your 6 most recently updated public repos, minus any already featured as project cards (matched by URL). If GitHub is unreachable or rate-limited, the list is skipped and the build still succeeds.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Colors and fonts are CSS variables at the top of [`app/globals.css`](app/globals.css), with separate light and dark values. Dark mode follows the system setting.
 
-## Deploy on Vercel
+## Swapping the photo
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Put a square headshot at **`public/profile.jpg`** (at least 560×560). The site checks for it at build time:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- If it exists, it's used in the hero and as the social-share (Open Graph/Twitter) image.
+- If it's missing, the hero shows an "MD" initials circle and no share image is advertised.
+
+To change the favicon, replace `app/icon.png` (a square PNG, 64×64 or larger).
+
+## Deployment
+
+`.github/workflows/deploy.yml` builds and deploys with the official Pages actions. It runs:
+
+- on every push to `main`
+- weekly (Mondays 15:00 UTC), so the GitHub repo list and footer year stay current
+- manually, from the Actions tab (**Run workflow**)
+
+One-time setup:
+
+1. Create a public GitHub repo named exactly **`michelledong200.github.io`** and push this project to `main`.
+2. In the repo, go to **Settings → Pages → Build and deployment → Source** and choose **GitHub Actions**.
+
+`public/.nojekyll` stops GitHub from running Jekyll, which would otherwise hide the `_next/` asset folder.
+
+## Remaining TODO(michelle) checklist
+
+Search the code for `TODO(michelle)` to find each one.
+
+- [ ] **Email:** replace `TODO@berkeley.edu` in `content/site.ts` (used by the hero, the Email link, and "Email me").
+- [ ] **Headshot:** add `public/profile.jpg`.
+- [ ] **Favicon:** replace the placeholder `app/icon.png`.
+- [ ] **Hero meta:** confirm pronouns ("She/Her") and class year ("Class of 2030").
+- [ ] **About stats:** keep or swap "5 projects", "4 sports", "A in C++".
+- [ ] **Shoreline Lake:** add numbers (students taught, age range) to the bullets.
+- [ ] **Coere AI:** add a GitHub or live-demo link.
+- [ ] **Walkie:** add a GitHub or live-demo link.
+- [ ] **Skin Disease Classification:** describe the dataset, model, and accuracy.
+- [ ] **AI Study Assistant:** describe what it does.
+- [ ] **SkyRL (fork):** describe your contribution.
+- [ ] **Skills:** add or remove items in each group.
+- [ ] **Consulting club:** replace the placeholder name.
+- [ ] **Education:** confirm the exact major/program name and graduation year.
+- [ ] **Resume (optional):** add `public/resume.pdf` and a link to it in `content/site.ts` if you want one.

@@ -1,26 +1,137 @@
 @import "tailwindcss";
 
+/*
+ * Design tokens. Values follow Reference A (beige canvas, slate ink, steel-blue accent),
+ * with muted/accent nudged darker so all text meets WCAG AA (4.5:1). Dark mode is derived
+ * from the same palette and follows the system preference.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --bg: #f3e9d8;
+  --bg-alt: #efe1cb;
+  --surface: #fbf6ec;
+  --surface-alt: #f2ecdf;
+  --text: #212c38;
+  --text-soft: #4c5a68;
+  --muted: #56626f;
+  --accent: #3a6594;
+  --accent-deep: #2a4a70;
+  --accent-soft: #bdd1e6;
+  --on-accent: #f5f9fd;
+  --border: #ded4c2;
+  --glow-1: #f7ecd7;
+  --glow-2: #f0e0c6;
+  --portrait-from: #eaf1f8;
+  --portrait-to: #c2d5e7;
+  --shadow: 0 18px 40px -24px rgba(28, 42, 64, 0.42);
+  --shadow-sm: 0 8px 22px -16px rgba(28, 42, 64, 0.45);
+  --nav-bg: rgba(243, 233, 216, 0.82);
+  --nav-h: 64px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg: #12181f;
+    --bg-alt: #161d25;
+    --surface: #1a222b;
+    --surface-alt: #212b36;
+    --text: #ece4d6;
+    --text-soft: #b9c2cc;
+    --muted: #97a3af;
+    --accent: #8db4dd;
+    --accent-deep: #b3cde9;
+    --accent-soft: #34506e;
+    --on-accent: #10161d;
+    --border: #2a3541;
+    --glow-1: #1a2230;
+    --glow-2: #17202b;
+    --portrait-from: #2a3d52;
+    --portrait-to: #1b2836;
+    --shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.7);
+    --shadow-sm: 0 8px 22px -16px rgba(0, 0, 0, 0.75);
+    --nav-bg: rgba(18, 24, 31, 0.82);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-alt: var(--bg-alt);
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
+  --color-text: var(--text);
+  --color-text-soft: var(--text-soft);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
+  --color-border: var(--border);
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --shadow-card: var(--shadow);
+  --shadow-card-sm: var(--shadow-sm);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background:
+      radial-gradient(1200px 700px at 78% -8%, var(--glow-1) 0%, transparent 60%),
+      radial-gradient(1000px 620px at -6% 12%, var(--glow-2) 0%, transparent 55%), var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-wrap: anywhere;
+  }
+
+  section[id],
+  header[id] {
+    scroll-margin-top: calc(var(--nav-h) + env(safe-area-inset-top));
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  a {
+    color: var(--accent-deep);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-fade {
+  animation: hero-in 0.7s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }
