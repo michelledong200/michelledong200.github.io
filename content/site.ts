@@ -94,7 +94,7 @@ export const site: Site = {
   shortName: "Michelle",
   initials: "MD",
   email: "TODO@berkeley.edu", // TODO(michelle): your @berkeley.edu email
-  location: "Berkeley, CA",
+  location: "San Francisco & Berkeley, CA",
   url: "https://michelledong200.github.io",
   description:
     "Michelle Dong — UC Berkeley student in business and computer science. Projects in AI, apps, and machine learning.",
@@ -119,13 +119,13 @@ export const site: Site = {
       "Business and computer science student at UC Berkeley, building at the intersection of AI, product, and people.",
     highlights: ["AI", "product", "people"],
     // TODO(michelle): confirm pronouns and grad year.
-    meta: ["She/Her", "San Francisco Bay Area", "Class of 2030"],
+    meta: ["She/Her", "San Francisco & Berkeley", "Class of 2030"],
   },
 
   about: {
     eyebrow: "About",
     heading: "Hi, I'm Michelle.",
-    bio: "I'm a freshman at UC Berkeley studying business and computer science. I grew up in the San Francisco Bay Area, and I like building tools that make everyday things easier, from AI products to apps that help students find their way around campus. Outside of class you'll find me on the tennis court, playing basketball, or out on the water windsurfing and sailing.",
+    bio: "I'm a freshman at UC Berkeley studying business and computer science. I grew up in the South Bay, and I like building tools that make everyday things easier, from AI products to apps that help students find their way around campus. Outside of class you'll find me on the tennis court, playing basketball, or out on the water windsurfing and sailing.",
     // TODO(michelle): swap any stat you'd rather not show.
     stats: [
       { value: "5", label: "Projects on GitHub & in progress" },
