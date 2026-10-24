@@ -1,11 +1,9 @@
 name: Deploy to GitHub Pages
 
+# The site is one static page in site/, so there is nothing to build: upload the folder and deploy it.
 on:
   push:
     branches: [main]
-  schedule:
-    # Weekly rebuild (Mondays 15:00 UTC) so the "More on GitHub" list and footer year stay fresh.
-    - cron: "0 15 * * 1"
   workflow_dispatch:
 
 permissions:
@@ -22,17 +20,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-          cache: npm
       - uses: actions/configure-pages@v5
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: out
+          path: site
 
   deploy:
     needs: build
