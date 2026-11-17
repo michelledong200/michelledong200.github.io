@@ -11,151 +11,144 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
 <style>
-/* Layout: one navy sheet. A console header, a row of animated widgets that jump to each section, then pinned "stages"
-   (position: sticky) where scroll scrubs each project's machinery frame by frame, with
-   cartoon sport interludes between them. White on navy; pale paper for the instruments.
+/* Layout: a calm navy page. A slim header, a row of small animated widgets that jump to each
+   section, then projects one after another (each animation plays on its own when it comes into
+   view), an "Off the clock" grid of sport cartoons, the full index and contact.
    Single committed look: navy everywhere, the contrast button flips to an inverse. */
 :root{
-  --bg:#0a1a3f;        /* page: deep navy */
-  --ink:#ffffff;       /* type and line art on the page */
-  --ink-2:#8ea2c9;     /* secondary text on navy */
-  --paper:#f3f5fa;     /* instrument panels */
-  --pi:#0a1a3f;        /* ink on paper */
+  --bg:#13223f;        /* page: soft navy */
+  --ink:#eef2f8;       /* type and line art on the page */
+  --ink-2:#9aa9c6;     /* secondary text on navy */
+  --rule:#2b3b5e;      /* hairlines on navy */
+  --card:#182a4c;      /* raised surface on navy */
+  --paper:#f4f6fa;     /* instrument panels */
+  --pi:#13223f;        /* ink on paper */
   --pi-2:#8d98ad;      /* faint ink on paper */
-  --hot:#ff5b45;       /* coral highlight */
+  --hot:#ff7a66;       /* coral highlight */
   --ball:#e2ff4d;
   --f-display:"Anton","Impact","Haettenschweiler","Arial Narrow Bold",sans-serif;
   --f-serif:"Instrument Serif","Iowan Old Style","Georgia",serif;
   --f-mono:"DM Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
   --gutter:max(16px, env(safe-area-inset-left, 0px));
   --gutter-r:max(16px, env(safe-area-inset-right, 0px));
+  --max:1180px;
   color-scheme:dark;
 }
-:root[data-contrast="inverse"]{--bg:#f3f5fa;--ink:#0a1a3f;--ink-2:#4d5f85;--paper:#0a1a3f;--pi:#ffffff;--pi-2:#6d7fa6;color-scheme:light}
+:root[data-contrast="inverse"]{--bg:#f4f6fa;--ink:#13223f;--ink-2:#55658a;--rule:#d8deea;--card:#ffffff;--paper:#13223f;--pi:#ffffff;--pi-2:#6d7fa6;color-scheme:light}
 
 *{box-sizing:border-box}
 html{scroll-behavior:auto}
-body{background:var(--bg);color:var(--ink);font:400 18px/1.45 var(--f-serif);letter-spacing:-.01em;overflow-x:clip;transition:background .5s,color .5s}
+body{background:var(--bg);color:var(--ink);font:400 18px/1.55 var(--f-serif);overflow-x:clip;transition:background .5s,color .5s}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
 a{color:inherit}
 ::selection{background:var(--ink);color:var(--bg)}
-:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+:focus-visible{outline:2px solid var(--hot);outline-offset:3px;border-radius:4px}
 .mono{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
 .wrap{padding-left:var(--gutter);padding-right:var(--gutter-r)}
+.inner{max-width:var(--max);margin-inline:auto}
+.eyebrow{color:var(--ink-2)}
+.h2{margin:0;font:400 clamp(40px,5.2vw,68px)/1.02 var(--f-serif);letter-spacing:-.01em;text-wrap:balance}
+.lede{margin:0;color:var(--ink-2);font-size:20px;max-width:46ch}
 
-/* ---------- console header ---------- */
-.head{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--bg);border-bottom:1px solid var(--ink)}
-.head__row{display:grid;grid-template-columns:auto 1fr auto auto;align-items:stretch;padding-left:var(--gutter);padding-right:var(--gutter-r)}
-.head__row>*{display:flex;align-items:center;gap:18px;padding:12px 16px;border-left:1px solid var(--ink);min-width:0}
-.head__row>*:first-child{border-left:0;padding-left:0}
-.logo{font:400 26px/1 var(--f-display);text-decoration:none;letter-spacing:.01em}
-.nav a{text-decoration:none;position:relative}
-.nav a::after{content:"";position:absolute;left:0;right:100%;bottom:-3px;height:1px;background:var(--ink);transition:right .3s}
-.nav a:hover::after{right:0}
-.clock{white-space:nowrap;font-variant-numeric:tabular-nums}
-.contrast{appearance:none;border:1px solid var(--ink);background:transparent;color:var(--ink);width:34px;height:34px;border-radius:50%;cursor:pointer;display:grid;place-items:center;padding:0}
-.contrast span{width:16px;height:16px;border-radius:50%;background:linear-gradient(90deg,var(--ink) 50%,transparent 50%);border:1px solid var(--ink)}
-@media (max-width:820px){.clock{display:none}.head__row{grid-template-columns:auto 1fr auto}.nav{justify-content:flex-end;gap:12px}.nav a:nth-child(n+4){display:none}}
+/* ---------- header ---------- */
+.head{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
+.head__row{max-width:var(--max);margin-inline:auto;display:flex;align-items:center;gap:24px;padding-block:12px}
+.logo{font:400 24px/1 var(--f-display);text-decoration:none;letter-spacing:.02em;margin-right:auto}
+.nav{display:flex;gap:22px}
+.nav a{text-decoration:none;color:var(--ink-2);transition:color .2s}
+.nav a:hover{color:var(--ink)}
+.contrast{appearance:none;border:1px solid var(--rule);background:transparent;color:var(--ink);width:32px;height:32px;border-radius:50%;cursor:pointer;display:grid;place-items:center;padding:0}
+.contrast span{width:14px;height:14px;border-radius:50%;background:linear-gradient(90deg,var(--ink) 50%,transparent 50%);border:1px solid var(--ink)}
+.nav a{white-space:nowrap}
+@media (max-width:700px){.nav{gap:16px}.nav a:nth-child(3),.nav a:nth-child(4){display:none}}
 
 /* ---------- hero ---------- */
-.hero{position:relative;border-bottom:1px solid var(--ink)}
-.hero__meta{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--ink);padding-left:var(--gutter);padding-right:var(--gutter-r)}
-.hero__meta>div{padding:12px 16px;border-left:1px solid var(--ink)}
-.hero__meta>div:first-child{border-left:0;padding-left:0}
-.waves{display:block;width:100%;height:clamp(240px,34svh,360px);touch-action:pan-y;overflow:hidden}
-.hero__hint{position:absolute;right:var(--gutter-r);top:62px;pointer-events:none;color:var(--ink-2)}
+.hero{position:relative;padding-block:28px 64px}
+.hero__top{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--ink-2)}
+.waves{display:block;width:100%;height:clamp(220px,30svh,320px);touch-action:pan-y;overflow:hidden}
 .vig{cursor:pointer}.hit{fill:transparent}
 .jump{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-.jump:focus-within{position:absolute;left:var(--gutter);top:58px;width:auto;height:auto;clip-path:none;display:flex;flex-wrap:wrap;gap:8px;z-index:3;right:var(--gutter-r)}
-.jump a{background:var(--ink);color:var(--bg);padding:4px 10px;text-decoration:none}
-@media (max-width:640px){.waves{height:clamp(300px,42svh,380px)}.hero__hint{position:static;padding:8px var(--gutter-r) 0 var(--gutter)}}
-.title{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0 .12em;margin:0;padding:.06em var(--gutter-r) .1em var(--gutter);border-top:1px solid var(--ink);font:400 min(14.6vw,19rem)/.86 var(--f-display);text-transform:uppercase;letter-spacing:-.005em;cursor:default}
+.jump:focus-within{position:absolute;left:var(--gutter);top:10px;width:auto;height:auto;clip-path:none;display:flex;flex-wrap:wrap;gap:8px;z-index:3;right:var(--gutter-r)}
+.jump a{background:var(--ink);color:var(--bg);padding:4px 10px;text-decoration:none;border-radius:99px}
+@media (max-width:640px){.waves{height:clamp(300px,42svh,380px)}}
+.title{display:flex;flex-wrap:wrap;align-items:center;gap:0 .18em;margin:8px 0 0;font:400 min(10.5vw,9.5rem)/.9 var(--f-display);text-transform:uppercase;letter-spacing:.005em;cursor:default}
 .title .word{display:flex}
-.title .word{margin-block:-.05em}
 .char{position:relative;display:inline-block;overflow:hidden;height:1.02em;line-height:1.02}
-.char>i{display:block;height:1.02em;font-style:normal;position:relative;transition:transform .7s cubic-bezier(.86,0,.07,1)}
+.char>i{display:block;height:1.02em;font-style:normal;position:relative;transition:transform .9s cubic-bezier(.65,0,.35,1)}
 .char>i::before,.char>i::after{content:attr(data-l);position:absolute;left:0}
 .char>i::before{top:-100%}.char>i::after{top:100%}
 .char.up>i{transform:translateY(100%)}
 .char.down>i{transform:translateY(-100%)}
 .char.reset>i{transition:none}
-.star{width:.62em;height:.62em;flex:none;animation:spin 14s linear infinite}
+.star{width:.5em;height:.5em;flex:none;animation:spin 40s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.binary{overflow:hidden;white-space:nowrap;border-top:1px solid var(--ink);padding:6px 0;color:var(--ink-2);font-family:var(--f-mono);font-size:11px;letter-spacing:.3em}
-@media (max-width:640px){.hero__meta{grid-template-columns:1fr 1fr}.hero__meta>div:nth-child(3){display:none}.title{font-size:23vw;justify-content:flex-start}.star{width:.5em;height:.5em}}
-
-/* ---------- marquee ---------- */
-.marquee{background:var(--ink);color:var(--bg);overflow:hidden;border-bottom:1px solid var(--ink)}
-.marquee__track{display:flex;width:max-content;font:400 clamp(44px,8vw,120px)/1.05 var(--f-display);text-transform:uppercase;padding-block:.08em;will-change:transform}
-.marquee__track span{padding-right:.45em;white-space:nowrap}
-.marquee__track b{font-weight:400;color:transparent;-webkit-text-stroke:1.5px var(--bg)}
+.hero__intro{margin:22px 0 0;font-size:clamp(22px,2.2vw,28px);line-height:1.35;max-width:36ch;color:var(--ink-2)}
+.hero__intro b{font-weight:400;color:var(--ink)}
+@media (max-width:640px){.title{font-size:20vw}}
 
 /* ---------- about ---------- */
-.about{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);border-bottom:1px solid var(--ink)}
-.about>div{padding-block:56px;min-width:0}
-.about__lead{padding-right:40px;border-right:1px solid var(--ink)}
-.about__lead p{font-size:clamp(28px,3.3vw,48px);line-height:1.08;margin:18px 0 0;text-wrap:balance;max-width:22ch}
-.about__lead em{font-style:italic}
-.about__side{padding-left:40px;display:flex;flex-direction:column;gap:28px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--ink)}
-.stats div{padding:14px 12px 0 0}
-.stats strong{display:block;font:400 clamp(40px,5vw,72px)/1 var(--f-display);font-variant-numeric:tabular-nums}
-.about__side p{margin:0;max-width:44ch}
+.about{padding-block:72px;border-top:1px solid var(--rule)}
+.about .inner{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:56px}
+.about__lead p{font-size:clamp(26px,2.8vw,38px);line-height:1.2;margin:14px 0 0;text-wrap:balance;max-width:24ch}
+.about__lead em{font-style:italic;color:var(--hot)}
+.about__side{display:flex;flex-direction:column;gap:26px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.stats div{display:flex;flex-direction:column;gap:6px}
+.stats strong{display:block;font:400 clamp(34px,3.6vw,48px)/1 var(--f-serif);font-variant-numeric:tabular-nums}
+.stats .mono{color:var(--ink-2);font-size:11px;line-height:1.4}
+.about__side p{margin:0;max-width:44ch;color:var(--ink-2)}
 .courses{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
-.courses li{border:1px solid var(--ink);padding:4px 10px;border-radius:99px}
-@media (max-width:820px){.about{grid-template-columns:1fr}.about__lead{border-right:0;padding-right:0;border-bottom:1px solid var(--ink)}.about__side{padding-left:0}}
+.courses li{border:1px solid var(--rule);padding:4px 12px;border-radius:99px}
+@media (max-width:820px){.about .inner{grid-template-columns:1fr;gap:36px}}
 
-/* ---------- section label ---------- */
-.label{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid var(--ink);padding-block:10px}
-.workhead{border-bottom:1px solid var(--ink);padding-block:40px 30px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:24px}
-.workhead h2{margin:0;font:400 clamp(90px,22vw,330px)/.8 var(--f-display);letter-spacing:.06em;text-transform:uppercase}
-.workhead p{margin:0;max-width:30ch;font-size:22px;line-height:1.2}
-@media (max-width:640px){.workhead{grid-template-columns:1fr}}
+/* ---------- section heads ---------- */
+.sechead{padding-block:72px 8px;border-top:1px solid var(--rule)}
+.sechead .inner{display:flex;flex-direction:column;gap:14px}
 
-/* ---------- pinned stages ---------- */
-.stage{position:relative;border-bottom:1px solid var(--ink)}
-.stage__pin{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;flex-direction:column}
-.stage__ghost{position:absolute;left:0;top:50%;white-space:nowrap;font:400 46svh/1 var(--f-display);text-transform:uppercase;color:transparent;-webkit-text-stroke:1.5px var(--ink);opacity:.22;pointer-events:none;transform:translate(0,-50%);will-change:transform}
-.stage__body{position:relative;flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(20px,4vw,64px);align-items:center;padding:calc(64px + 2svh) var(--gutter-r) 3svh var(--gutter)}
-.copy{min-width:0;display:flex;flex-direction:column;gap:14px;max-width:560px}
+/* ---------- projects ---------- */
+.stage{position:relative}
+.stage__pin{position:relative}
+.stage__body{max-width:var(--max);margin-inline:auto;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(28px,5vw,72px);align-items:center;padding:56px var(--gutter-r) 56px var(--gutter);border-bottom:1px solid var(--rule)}
+.project:last-of-type .stage__body{border-bottom:0}
+.copy{min-width:0;display:flex;flex-direction:column;gap:16px;max-width:520px}
 .copy .id{display:flex;gap:14px;flex-wrap:wrap;color:var(--ink-2)}
-.copy h3{margin:0;font:400 clamp(56px,7.4vw,124px)/.88 var(--f-display);text-transform:uppercase;text-wrap:balance}
-.copy .desc{margin:0;font-size:20px;line-height:1.3;max-width:40ch}
-.steps{list-style:none;margin:6px 0 0;padding:0;border-top:1px solid var(--ink)}
-.steps li{display:grid;grid-template-columns:34px 1fr;gap:8px;padding:9px 0;border-bottom:1px solid var(--ink);font-size:17px;line-height:1.25;opacity:.42;transition:opacity .3s,padding .3s}
-.steps li::before{content:attr(data-n);font:500 11px/1.9 var(--f-mono);letter-spacing:.08em}
-.steps li.on{opacity:1;padding-left:10px}
-.facts{display:flex;flex-wrap:wrap;gap:6px 18px}
-.facts b{font-weight:500}
+.copy h3{margin:0;font:400 clamp(38px,4.2vw,58px)/1.02 var(--f-serif);text-wrap:balance}
+.copy .desc{margin:0;font-size:20px;line-height:1.45;max-width:42ch;color:var(--ink-2)}
+.steps{list-style:none;margin:4px 0 0;padding:0}
+.steps li{display:grid;grid-template-columns:38px 1fr;gap:8px;padding:8px 0;font-size:17px;line-height:1.35;opacity:.45;transition:opacity .6s}
+.steps li::before{content:attr(data-n);font:500 11px/2 var(--f-mono);letter-spacing:.08em;color:var(--ink-2)}
+.steps li.on{opacity:1}
+.steps li.on::before{color:var(--hot)}
+.facts{display:flex;flex-wrap:wrap;gap:6px 18px;color:var(--ink-2)}
+.facts b{font-weight:500;color:var(--ink)}
 .links{display:flex;gap:10px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--ink);padding:8px 14px;border-radius:99px;text-decoration:none;font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;transition:background .2s,color .2s}
-.btn:hover{background:var(--ink);color:var(--bg)}
-.viz{width:min(46vw,calc(100svh - 120px),720px);aspect-ratio:1;max-width:100%;background:var(--paper);border:1px solid var(--ink);box-shadow:10px 10px 0 var(--ink);position:relative}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--rule);padding:8px 16px;border-radius:99px;text-decoration:none;font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;transition:background .2s,color .2s,border-color .2s}
+.btn:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.viz{width:min(44vw,520px);aspect-ratio:1;max-width:100%;background:var(--paper);border-radius:18px;box-shadow:0 24px 60px -24px rgba(0,0,0,.55);position:relative;margin-bottom:22px}
+.viz svg{border-radius:18px}
 .viz svg{display:block;width:100%;height:100%}
-.viz .tag{position:absolute;left:0;top:-1px;transform:translateY(-100%);background:var(--ink);color:var(--bg);padding:3px 8px}
-.progress{position:absolute;left:var(--gutter);right:var(--gutter-r);bottom:14px;height:2px;background:color-mix(in srgb,var(--ink) 22%,transparent)}
-.progress i{display:block;height:100%;background:var(--ink);transform-origin:0 50%;transform:scaleX(0)}
+.viz .tag{position:absolute;left:4px;top:calc(100% + 10px);color:var(--ink-2);font-size:10px}
 @media (max-width:860px){
-  .stage__body{grid-template-columns:1fr;grid-template-rows:auto auto;align-content:start;justify-items:center;gap:14px;padding-top:calc(58px + 1svh)}
-  .copy{gap:8px;width:100%}
-  .copy h3{font-size:clamp(40px,12vw,72px)}
-  .copy .desc,.facts,.links{display:none}
-  .steps li{display:none;border-bottom:0}
-  .steps li.on{display:grid;padding-left:0}
-  .viz{width:min(calc(100vw - 48px),calc(100svh - 320px));box-shadow:6px 6px 0 var(--ink);margin-top:20px}
+  .stage__body{grid-template-columns:1fr;gap:28px;padding-block:48px}
+  .viz{width:100%;max-width:520px;justify-self:center}
 }
 
-/* sport interludes */
-.play .stage__body{grid-template-columns:1fr;grid-template-rows:auto 1fr;align-items:stretch;padding-bottom:40px}
-.play__cap{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;position:relative;z-index:2}
-.play__cap h3{margin:0;font:400 clamp(48px,7vw,110px)/.85 var(--f-display);text-transform:uppercase}
-.play__cap p{margin:0;max-width:36ch;font-size:20px;line-height:1.25}
-.play__cap .count{font:400 clamp(40px,5vw,72px)/1 var(--f-display);font-variant-numeric:tabular-nums;text-align:right}
-.play svg{width:100%;height:100%;min-height:0;display:block;overflow:visible}
+/* ---------- off the clock ---------- */
+.playgrid{max-width:var(--max);margin-inline:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;padding:32px var(--gutter-r) 72px var(--gutter)}
+.playgrid .stage{background:var(--card);border-radius:18px;overflow:hidden}
+.play .stage__body{display:flex;flex-direction:column;gap:12px;padding:22px 22px 14px;border:0;max-width:none}
+.play__cap{display:grid;grid-template-columns:1fr auto;gap:4px 16px;align-items:start;width:100%}
+.play__cap h3{margin:0;font:400 30px/1.1 var(--f-serif)}
+.play__cap p{margin:0;grid-column:1;font-size:16px;line-height:1.4;color:var(--ink-2);max-width:40ch}
+.play__cap .count{grid-column:2;grid-row:1/3;font:400 30px/1 var(--f-serif);font-variant-numeric:tabular-nums;text-align:right}
+.play__cap .count .mono{color:var(--ink-2);font-size:10px}
+.play svg{width:100%;height:auto;aspect-ratio:12/5;display:block;overflow:hidden}
+@media (max-width:760px){.playgrid{grid-template-columns:1fr}}
 
 /* svg paint classes (all through tokens) */
 .f-ink{fill:var(--ink)}.f-ink2{fill:var(--ink-2)}.f-paper{fill:var(--paper)}.f-pi{fill:var(--pi)}.f-pi2{fill:var(--pi-2)}.f-red{fill:var(--hot)}.f-bg{fill:var(--bg)}.f-none{fill:none}.f-ball{fill:var(--ball)}
 .s-ink{stroke:var(--ink)}.s-ink2{stroke:var(--ink-2)}.s-pi{stroke:var(--pi)}.s-pi2{stroke:var(--pi-2)}.s-red{stroke:var(--hot)}.s-paper{stroke:var(--paper)}.s-bg{stroke:var(--bg)}
+.playgrid .s-bg{stroke:var(--card)}
 .t-mono{font-family:var(--f-mono);font-size:12px;letter-spacing:.06em}
 .t-serif{font-family:var(--f-serif);font-size:16px}
 .t-disp{font-family:var(--f-display)}
@@ -169,65 +162,57 @@ a{color:inherit}
 .ghostfig .hair{fill:var(--pi);stroke:var(--ink-2)}.ghostfig .headc{stroke:var(--ink-2)}
 
 /* ---------- index ---------- */
-.index{border-bottom:1px solid var(--ink)}
-.index h2{margin:0;padding-block:40px 20px;font:400 clamp(70px,14vw,220px)/.85 var(--f-display);text-transform:uppercase}
-.rows{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
-.rows a{display:grid;grid-template-columns:120px minmax(0,1.1fr) minmax(0,1.6fr) 110px 90px 24px;gap:16px;align-items:baseline;padding:16px var(--gutter-r) 16px var(--gutter);border-bottom:1px solid var(--ink);text-decoration:none;transition:background .25s,color .25s}
-.rows a:hover,.rows a:focus-visible{background:var(--ink);color:var(--bg)}
-.rows .nm{font:400 clamp(22px,2vw,32px)/1 var(--f-display);text-transform:uppercase;overflow-wrap:anywhere}
-.rows .ds{font:400 19px/1.3 var(--f-serif);text-transform:none;letter-spacing:0}
-.rows .ar{font-family:var(--f-mono);transition:transform .25s}
-.rows a:hover .ar{transform:translateX(4px) rotate(-45deg)}
-@media (max-width:860px){.rows a{grid-template-columns:1fr auto;gap:6px 12px}.rows .id,.rows .lg,.rows .dt{grid-column:1}.rows .nm{grid-column:1}.rows .ar{grid-column:2;grid-row:1}.rows .ds{grid-column:1/-1}.rows .lg,.rows .dt{display:none}}
+.index{padding-bottom:72px}
+.rows{list-style:none;margin:28px auto 0;padding:0;max-width:var(--max);border-top:1px solid var(--rule)}
+.rows a,.rows .norow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr) 110px 24px;gap:20px;align-items:baseline;padding:18px 4px;border-bottom:1px solid var(--rule);text-decoration:none;transition:background .25s,padding .25s}
+.rows a:hover,.rows a:focus-visible{background:var(--card);padding-inline:14px}
+.rows .id,.rows .dt{display:none}
+.rows .nm{font:400 24px/1.15 var(--f-serif);text-transform:none;letter-spacing:0;overflow-wrap:anywhere}
+.rows .ds{font:400 17px/1.4 var(--f-serif);text-transform:none;letter-spacing:0;color:var(--ink-2)}
+.rows .lg{color:var(--ink-2)}
+.rows .ar{font-family:var(--f-mono);color:var(--ink-2);transition:transform .25s}
+.rows a:hover .ar{transform:translateX(4px)}
+@media (max-width:760px){.rows a,.rows .norow{grid-template-columns:1fr auto;gap:4px 12px}.rows .ds{grid-column:1/-1}.rows .lg{display:none}.rows .ar{grid-column:2;grid-row:1}}
 
 /* ---------- contact ---------- */
-.contact{padding-block:60px 30px;display:flex;flex-direction:column;gap:28px}
-.contact .title{border:0;padding:0;font-size:min(30vw,26rem);justify-content:flex-start}
+.contact{padding-block:80px 40px;border-top:1px solid var(--rule)}
+.contact .inner{display:flex;flex-direction:column;gap:20px}
 .contact__row{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:end}
-.contact__row p{margin:0;font-size:clamp(22px,2.4vw,34px);line-height:1.15;max-width:26ch}
-.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--ink);padding-block:14px}
-
-.hud{position:fixed;left:calc(var(--gutter));bottom:calc(30px + env(safe-area-inset-bottom,0px));z-index:40;background:var(--ink);color:var(--bg);padding:5px 10px;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;pointer-events:none;font-variant-numeric:tabular-nums}
-.hud.on{opacity:1;transform:none}
+.foot{max-width:var(--max);margin-inline:auto;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--rule);padding-block:18px;color:var(--ink-2)}
 @media (prefers-reduced-motion:reduce){.star{animation:none}.char>i{transition:none}}
 </style>
 </head>
 <body>
 
-<header class="head">
+<header class="head wrap">
   <div class="head__row mono">
     <a class="logo" href="#top" aria-label="Michelle Dong, back to top">MD</a>
-    <nav class="nav" aria-label="Sections"><a href="#about">About</a><a href="#work">Work</a><a href="#index">Index</a><a href="#contact">Contact</a></nav>
-    <div class="clock" id="clock">Berkeley, CA</div>
-    <div><button class="contrast" id="contrast" type="button" aria-label="Change contrast" title="Change contrast"><span></span></button></div>
+    <nav class="nav" aria-label="Sections"><a href="#about">About</a><a href="#work">Projects</a><a href="#play">Off the clock</a><a href="#index">All</a><a href="#contact">Contact</a></nav>
+    <button class="contrast" id="contrast" type="button" aria-label="Change contrast" title="Change contrast"><span></span></button>
   </div>
 </header>
 
 <main id="top">
-  <section class="hero" aria-label="Intro">
-    <div class="hero__meta mono">
-      <div>UC Berkeley · Business + CS</div>
-      <div>SF &amp; Berkeley, CA</div>
-      <div>Open to internships &amp; collabs</div>
+  <section class="hero wrap" aria-label="Intro">
+    <div class="inner">
+      <div class="hero__top mono"><span>UC Berkeley · Business + CS</span><span>Tap a picture to jump to it</span></div>
+      <svg class="waves" id="waves" aria-hidden="true"></svg>
+      <nav class="jump mono" aria-label="Jump to a project or sport">
+        <a href="#go-guac">GuacBand</a><a href="#go-skin">Skin classifier</a><a href="#go-poker">Poker</a><a href="#go-study">Study assistant</a><a href="#go-cpp">C++ engine</a><a href="#go-tennis">Tennis</a><a href="#go-sail">Sailing</a><a href="#go-surf">Windsurfing</a><a href="#go-hoops">Basketball</a>
+      </nav>
+      <h1 class="title" data-split aria-label="Michelle Dong">
+        <span class="word">Michelle</span>
+        <svg class="star" viewBox="0 0 100 100" aria-hidden="true"><path class="f-ink" d="M50 0 C54 34 66 46 100 50 C66 54 54 66 50 100 C46 66 34 54 0 50 C34 46 46 34 50 0Z"/></svg>
+        <span class="word">Dong</span>
+      </h1>
+      <p class="hero__intro"><b>Business and computer science at UC Berkeley.</b> I build things, and spend the rest of my time on a court or out on the water.</p>
     </div>
-    <svg class="waves" id="waves" aria-hidden="true"></svg>
-    <div class="hero__hint mono" aria-hidden="true">Push things around · click anything to jump there</div>
-    <nav class="jump mono" aria-label="Jump to a project or sport">
-      <a href="#go-skin">Skin classifier</a><a href="#go-cpp">C++ engine</a><a href="#go-poker">Poker</a><a href="#go-study">Study assistant</a><a href="#go-guac">GuacBand</a><a href="#go-tennis">Tennis</a><a href="#go-sail">Sailing</a><a href="#go-surf">Windsurfing</a><a href="#go-hoops">Basketball</a>
-    </nav>
-    <h1 class="title" data-split aria-label="Michelle Dong">
-      <span class="word">Michelle</span>
-      <svg class="star" viewBox="0 0 100 100" aria-hidden="true"><path class="f-ink" d="M50 0 C54 34 66 46 100 50 C66 54 54 66 50 100 C46 66 34 54 0 50 C34 46 46 34 50 0Z"/></svg>
-      <span class="word">Dong</span>
-    </h1>
-    <div class="binary" id="binary" aria-hidden="true"></div>
   </section>
 
-  <div class="marquee" aria-hidden="true"><div class="marquee__track" id="marquee"></div></div>
-
   <section class="about wrap" id="about">
+    <div class="inner">
     <div class="about__lead">
-      <div class="mono">About</div>
+      <div class="mono eyebrow">About</div>
       <p>I'm Michelle, a freshman at UC Berkeley studying business and computer science. I like building tools that make everyday things <em>easier</em>, and I like seeing them run.</p>
     </div>
     <div class="about__side">
@@ -236,24 +221,27 @@ a{color:inherit}
         <div><strong>23</strong><span class="mono">skin conditions my model reads</span></div>
         <div><strong>4</strong><span class="mono">sports, all of them outdoors</span></div>
       </div>
-      <p>I grew up in the South Bay. Most of my projects start as a question: how fast can a matrix multiply get by hand, can a photo hint at a skin condition, can a poker game teach you while you play? This page shows each one working. Scroll slowly.</p>
+      <p>I grew up in the South Bay. Most of my projects start as a question: how fast can a matrix multiply get by hand, can a photo hint at a skin condition, can a poker game teach you while you play? Each one is shown working below.</p>
       <div>
         <div class="mono" style="margin-bottom:10px">Fall 2026 coursework</div>
         <ul class="courses mono"><li>CS 61A</li><li>Data C8</li><li>Math 52</li><li>EPS 7</li></ul>
       </div>
-      <p class="mono" style="color:var(--ink-2)">Summer 2026 · Sailing &amp; windsurfing coach, Shoreline Lake</p>
+      <p class="mono">Summer 2026 · Sailing &amp; windsurfing coach, Shoreline Lake</p>
+    </div>
     </div>
   </section>
 
-  <section class="workhead wrap" id="work">
-    <h2>Work</h2>
-    <p>Five projects, each pinned in place while the scroll runs it. Breaks for sport in between.</p>
+  <section class="sechead wrap" id="work">
+    <div class="inner">
+      <div class="mono eyebrow">Projects</div>
+      <h2 class="h2">Five things I've built</h2>
+      <p class="lede">Each one plays a short demo of how it works when you scroll to it.</p>
+    </div>
   </section>
 
   <!-- 01 guacband -->
-  <section id="go-guac" class="stage" data-scene="guac" data-len="2.8" data-name="GuacBand">
+  <section id="go-guac" class="stage project" data-scene="guac" data-len="2.8" data-name="GuacBand">
     <div class="stage__pin">
-      <div class="stage__ghost">Gesture · Signal · Gesture · Signal</div>
       <div class="stage__body">
         <div class="copy">
           <div class="id mono"><span>#MD-01/05</span><span>Hardware · ML · in progress</span></div>
@@ -269,26 +257,13 @@ a{color:inherit}
         </div>
         <div class="viz"><span class="tag mono">Simulated signals</span><svg id="v-guac" viewBox="0 0 600 600" role="img" aria-label="Animated forearm band with four sensor signals and a gesture classifier"></svg></div>
       </div>
-      <div class="progress"><i></i></div>
     </div>
   </section>
 
-  <!-- tennis -->
-  <section id="go-tennis" class="stage play" data-scene="tennis" data-len="2" data-name="Off court: tennis">
-    <div class="stage__pin">
-      <div class="stage__ghost">Tennis · Tennis · Tennis</div>
-      <div class="stage__body">
-        <div class="play__cap"><div><div class="mono">Break · 01</div><h3>Tennis</h3></div><p>Regular practice and play. Scroll keeps the rally going.</p><div class="count"><span class="mono" style="display:block">Rally</span><span id="rally">00</span></div></div>
-        <svg id="v-tennis" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid meet" aria-label="Cartoon of Michelle rallying a tennis ball over a net"></svg>
-      </div>
-      <div class="progress"><i></i></div>
-    </div>
-  </section>
-
+  
   <!-- 02 skin -->
-  <section id="go-skin" class="stage" data-scene="skin" data-len="3.2" data-name="Skin disease classifier">
+  <section id="go-skin" class="stage project" data-scene="skin" data-len="3.2" data-name="Skin disease classifier">
     <div class="stage__pin">
-      <div class="stage__ghost">Dermnet · ResNet-18 · Dermnet · ResNet-18</div>
       <div class="stage__body">
         <div class="copy">
           <div class="id mono"><span>#MD-02/05</span><span>PyTorch · Jupyter</span></div>
@@ -305,26 +280,13 @@ a{color:inherit}
         </div>
         <div class="viz"><span class="tag mono">Demo predictions · illustrative</span><svg id="v-skin" viewBox="0 0 600 600" role="img" aria-label="Animated diagram: a magnifying glass scans skin photos and a ResNet-18 network outputs ranked predictions"></svg></div>
       </div>
-      <div class="progress"><i></i></div>
     </div>
   </section>
 
-  <!-- sailing -->
-  <section id="go-sail" class="stage play" data-scene="sail" data-len="1.8" data-name="Off land: sailing">
-    <div class="stage__pin">
-      <div class="stage__ghost">Sailing · Sailing · Sailing</div>
-      <div class="stage__body">
-        <div class="play__cap"><div><div class="mono">Break · 02</div><h3>Sailing</h3></div><p>I spent summer 2026 coaching sailing and windsurfing classes at Shoreline Lake in Mountain View.</p><div class="count"><span class="mono" style="display:block">Knots</span><span id="knots">0.0</span></div></div>
-        <svg id="v-sail" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid meet" aria-label="Cartoon sailboat crossing waves"></svg>
-      </div>
-      <div class="progress"><i></i></div>
-    </div>
-  </section>
-
+  
   <!-- 03 poker -->
-  <section id="go-poker" class="stage" data-scene="poker" data-len="3" data-name="Brass Rail Poker">
+  <section id="go-poker" class="stage project" data-scene="poker" data-len="3" data-name="Brass Rail Poker">
     <div class="stage__pin">
-      <div class="stage__ghost">All in · Pot odds · Outs · All in</div>
       <div class="stage__body">
         <div class="copy">
           <div class="id mono"><span>#MD-03/05</span><span>HTML · JS · one file</span></div>
@@ -341,26 +303,13 @@ a{color:inherit}
         </div>
         <div class="viz"><span class="tag mono">Sample hand</span><svg id="v-poker" viewBox="0 0 600 600" role="img" aria-label="Animated poker hand with a coach giving advice and a Monte Carlo win estimate"></svg></div>
       </div>
-      <div class="progress"><i></i></div>
     </div>
   </section>
 
-  <!-- windsurf -->
-  <section id="go-surf" class="stage play" data-scene="surf" data-len="1.8" data-name="Off land: windsurfing">
-    <div class="stage__pin">
-      <div class="stage__ghost">Windsurf · Windsurf · Windsurf</div>
-      <div class="stage__body">
-        <div class="play__cap"><div><div class="mono">Break · 03</div><h3>Windsurfing</h3></div><p>Rigging, technique and on-water safety are what I teach. The jump is just for fun.</p><div class="count"><span class="mono" style="display:block">Air</span><span id="air">0.0m</span></div></div>
-        <svg id="v-surf" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid meet" aria-label="Cartoon windsurfer jumping a wave"></svg>
-      </div>
-      <div class="progress"><i></i></div>
-    </div>
-  </section>
-
+  
   <!-- 04 study -->
-  <section id="go-study" class="stage" data-scene="study" data-len="3" data-name="AI Study Assistant">
+  <section id="go-study" class="stage project" data-scene="study" data-len="3" data-name="AI Study Assistant">
     <div class="stage__pin">
-      <div class="stage__ghost">Retrieve · Cite · Quiz · Retrieve</div>
       <div class="stage__body">
         <div class="copy">
           <div class="id mono"><span>#MD-04/05</span><span>Python · Streamlit · ChromaDB</span></div>
@@ -378,26 +327,13 @@ a{color:inherit}
         </div>
         <div class="viz"><span class="tag mono">Example question</span><svg id="v-study" viewBox="0 0 600 600" role="img" aria-label="Animated retrieval pipeline from documents to embeddings to a cited answer and a flashcard"></svg></div>
       </div>
-      <div class="progress"><i></i></div>
     </div>
   </section>
 
-  <!-- basketball -->
-  <section id="go-hoops" class="stage play" data-scene="hoops" data-len="2" data-name="Off court: basketball">
-    <div class="stage__pin">
-      <div class="stage__ghost">Hoops · Hoops · Hoops</div>
-      <div class="stage__body">
-        <div class="play__cap"><div><div class="mono">Break · 04</div><h3>Basketball</h3></div><p>Pickup games on land, between days on the water.</p><div class="count"><span class="mono" style="display:block">Points</span><span id="pts">0</span></div></div>
-        <svg id="v-hoops" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid meet" aria-label="Cartoon of Michelle dribbling and shooting a basketball"></svg>
-      </div>
-      <div class="progress"><i></i></div>
-    </div>
-  </section>
-
+  
   <!-- 05 cpp -->
-  <section id="go-cpp" class="stage" data-scene="cpp" data-len="3.2" data-name="C++ inference engine">
+  <section id="go-cpp" class="stage project" data-scene="cpp" data-len="3.2" data-name="C++ inference engine">
     <div class="stage__pin">
-      <div class="stage__ghost">C = A × B · SGEMM · NEON · C = A × B</div>
       <div class="stage__body">
         <div class="copy">
           <div class="id mono"><span>#MD-05/05</span><span>C++17 · ARM NEON</span></div>
@@ -416,30 +352,78 @@ a{color:inherit}
         </div>
         <div class="viz"><span class="tag mono">Apple M5 Pro · measured</span><svg id="v-cpp" viewBox="0 0 600 600" role="img" aria-label="Animated diagram of matrix multiply access patterns and a GFLOPS bar chart for each optimization stage"></svg></div>
       </div>
-      <div class="progress"><i></i></div>
     </div>
   </section>
 
-  <section class="index" id="index">
-    <div class="label mono wrap"><span>Index</span><span>github.com/michelledong200</span></div>
-    <h2 class="wrap">Everything</h2>
+  <section class="sechead wrap" id="play">
+    <div class="inner">
+      <div class="mono eyebrow">Off the clock</div>
+      <h2 class="h2">Courts and water</h2>
+      <p class="lede">Where I am when I'm not at a keyboard.</p>
+    </div>
+  </section>
+  <div class="playgrid">
+<!-- tennis -->
+  <section id="go-tennis" class="stage play" data-scene="tennis" data-len="2" data-name="Off court: tennis">
+    <div class="stage__pin">
+      <div class="stage__body">
+        <div class="play__cap"><h3>Tennis</h3><p>Regular practice and play.</p><div class="count"><span class="mono" style="display:block">Rally</span><span id="rally">00</span></div></div>
+        <svg id="v-tennis" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid meet" aria-label="Cartoon of Michelle rallying a tennis ball over a net"></svg>
+      </div>
+    </div>
+  </section>
+<!-- sailing -->
+  <section id="go-sail" class="stage play" data-scene="sail" data-len="1.8" data-name="Off land: sailing">
+    <div class="stage__pin">
+      <div class="stage__body">
+        <div class="play__cap"><h3>Sailing</h3><p>I spent summer 2026 coaching sailing and windsurfing classes at Shoreline Lake in Mountain View.</p><div class="count"><span class="mono" style="display:block">Knots</span><span id="knots">0.0</span></div></div>
+        <svg id="v-sail" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid meet" aria-label="Cartoon sailboat crossing waves"></svg>
+      </div>
+    </div>
+  </section>
+<!-- windsurf -->
+  <section id="go-surf" class="stage play" data-scene="surf" data-len="1.8" data-name="Off land: windsurfing">
+    <div class="stage__pin">
+      <div class="stage__body">
+        <div class="play__cap"><h3>Windsurfing</h3><p>Rigging, technique and on-water safety are what I teach. The jump is just for fun.</p><div class="count"><span class="mono" style="display:block">Air</span><span id="air">0.0m</span></div></div>
+        <svg id="v-surf" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid meet" aria-label="Cartoon windsurfer jumping a wave"></svg>
+      </div>
+    </div>
+  </section>
+<!-- basketball -->
+  <section id="go-hoops" class="stage play" data-scene="hoops" data-len="2" data-name="Off court: basketball">
+    <div class="stage__pin">
+      <div class="stage__body">
+        <div class="play__cap"><h3>Basketball</h3><p>Pickup games on land, between days on the water.</p><div class="count"><span class="mono" style="display:block">Points</span><span id="pts">0</span></div></div>
+        <svg id="v-hoops" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid meet" aria-label="Cartoon of Michelle dribbling and shooting a basketball"></svg>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <section class="index wrap" id="index">
+    <div class="sechead" style="padding-inline:0"><div class="inner">
+      <div class="mono eyebrow">github.com/michelledong200</div>
+      <h2 class="h2">Everything, in one list</h2>
+    </div></div>
     <ul class="rows mono" id="rows"></ul>
   </section>
 
   <section class="contact wrap" id="contact">
-    <div class="mono">Contact</div>
-    <h2 class="title" data-split aria-label="Say hi"><span class="word">Say</span><span class="word">hi</span></h2>
-    <div class="contact__row">
-      <p>Open to internships, project collaborations and coffee chats.</p>
-      <div class="links">
-        <a class="btn" href="https://github.com/michelledong200" target="_blank" rel="noopener">GitHub ↗</a>
-        <a class="btn" href="https://www.linkedin.com/in/michelle-dong1777" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <div class="inner">
+      <div class="mono eyebrow">Contact</div>
+      <h2 class="h2">Say hi</h2>
+      <div class="contact__row">
+        <p class="lede">Open to internships, project collaborations and coffee chats.</p>
+        <div class="links">
+          <a class="btn" href="https://github.com/michelledong200" target="_blank" rel="noopener">GitHub ↗</a>
+          <a class="btn" href="https://www.linkedin.com/in/michelle-dong1777" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </div>
       </div>
     </div>
   </section>
-  <footer class="foot mono wrap"><span>Michelle Dong · 2026</span><span>Drawn in SVG, scrolled by hand</span><a href="#top">Back to top ↑</a></footer>
+  <div class="wrap"><footer class="foot mono"><span>Michelle Dong · 2026</span><a href="#top">Back to top ↑</a></footer></div>
 </main>
-<div class="hud mono" id="hud" aria-hidden="true"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>
@@ -478,16 +462,11 @@ function blob(cx, cy, r, rand, n = 11, j = .35) {
 }
 const pct = v => Math.round(v * 100) + "%";
 
-/* ---------- theme toggle + clock ---------- */
+/* ---------- theme toggle ---------- */
 const root = document.documentElement;
 document.getElementById("contrast").addEventListener("click", () => {
   if (root.dataset.contrast) delete root.dataset.contrast; else root.dataset.contrast = "inverse";
 });
-const clock = document.getElementById("clock");
-function tick() {
-  try { clock.textContent = "Berkeley, CA · " + new Intl.DateTimeFormat("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/Los_Angeles" }).format(new Date()) + " PT"; } catch (e) {}
-}
-tick(); setInterval(tick, 20000);
 
 /* ---------- split titles, letters roll on hover ---------- */
 document.querySelectorAll("[data-split] .word").forEach(w => {
@@ -502,14 +481,6 @@ document.querySelectorAll("[data-split] .word").forEach(w => {
     });
   }
 });
-
-/* ---------- marquee + binary ---------- */
-const mq = document.getElementById("marquee");
-const mqText = '<span>Business + Computer Science</span><span><b>★</b></span><span>UC Berkeley</span><span><b>★</b></span><span>C++ · PyTorch · RAG</span><span><b>★</b></span><span>Tennis · Sailing · Windsurf · Hoops</span><span><b>★</b></span>';
-mq.innerHTML = mqText + mqText;
-const bin = document.getElementById("binary");
-const binR = rng(7); let binStr = ""; for (let i = 0; i < 260; i++) binStr += binR() < .5 ? "0" : "1"; bin.textContent = binStr;
-
 
 /* ---------- character rig shared by the sport scenes ---------- */
 const dir = (a, l) => [Math.sin(a * D) * l, Math.cos(a * D) * l];
@@ -587,7 +558,7 @@ function vig(o) {
 }
 const hit = (g, x, y, w, h) => S("rect", { x, y, width: w, height: h, class: "hit" }, g);
 // same order as the sections on the page
-const SLOTS = ["guac", "tennis", "skin", "sail", "poker", "surf", "study", "hoops", "cpp"];
+const SLOTS = ["guac", "skin", "poker", "study", "cpp", "tennis", "sail", "surf", "hoops"];
 function miniPlace(key) {
   const i = SLOTS.indexOf(key);
   return () => mobile() ? [W * (.2 + (i % 3) * .3), H * (.2 + Math.floor(i / 3) * .3), .78] : [W * (.1 + i * .1), H * .52, 1.1 * K];
@@ -744,11 +715,7 @@ function drawWaves(t) {
   let hv = null;
   for (const v of HV) {
     const [x, y, sc] = v.place(t), rot = 0;
-    v.update(t);
-    if (ptr.active && !v.hover) {
-      const ddx = x + v.dx - ptr.x, ddy = y + v.dy - ptr.y, d = Math.hypot(ddx, ddy) + 1;
-      if (d < 170) { const f = 1 - d / 170; v.vx += ptr.vx * f * f * .35 + ddx / d * f * 1.1; v.vy += ptr.vy * f * f * .35 + ddy / d * f * 1.1; }
-    }
+    v.update(t * .7);
     v.vx += -v.dx * .05; v.vy += -v.dy * .05; v.vx *= .86; v.vy *= .86; v.dx += v.vx; v.dy += v.vy;
     v.s = lerp(v.s, v.hover ? 1.12 : 1, .2);
     const X = x + v.dx, Y = y + v.dy, s = sc * v.s;
@@ -1314,7 +1281,7 @@ scenes.guac = (svg) => {
 const REPOS = [
   ["cpp-inference-engine", "Neural network engine on a hand-tuned ARM NEON SGEMM. 804 GFLOPS, 98.2% on MNIST.", "C++", "2026-10-18", "https://github.com/michelledong200/cpp-inference-engine"],
   ["brass-rail-poker", "Texas Hold'em with a coach, lessons, AI opponents and friend tables.", "HTML", "2026-10-14", "https://github.com/michelledong200/brass-rail-poker"],
-  ["michelledong200.github.io", "My current portfolio: Next.js, static export, with a hidden avocado hunt.", "TypeScript", "2026-09-24", "https://github.com/michelledong200/michelledong200.github.io"],
+  ["michelledong200.github.io", "This site: one static page with every animation drawn in SVG.", "HTML", "2026-11-17", "https://github.com/michelledong200/michelledong200.github.io"],
   ["skin_disease_classification", "ResNet-18 fine-tuned on DermNet for 23 skin-condition classes.", "Jupyter", "2026-06-04", "https://github.com/michelledong200/skin_disease_classification"],
   ["ai_study_assistant", "RAG over your class materials, with citations, flashcards and quizzes.", "Python", "2026-06-04", "https://github.com/michelledong200/ai_study_assistant"],
   ["SkyRL_Project", "Fork of SkyRL, a modular full-stack reinforcement-learning library for LLMs.", "Python · fork", "2026-05-30", "https://github.com/michelledong200/SkyRL_Project"],
@@ -1330,26 +1297,15 @@ REPOS.forEach(([n, d, l, dt, href], i) => {
   if (!href) { a.className = "norow"; }
   li.appendChild(a); rowsEl.appendChild(li);
 });
-// non-link rows reuse the link layout
-const st = document.createElement("style");
-st.textContent = ".rows .norow{display:grid;grid-template-columns:120px minmax(0,1.1fr) minmax(0,1.6fr) 110px 90px 24px;gap:16px;align-items:baseline;padding:16px var(--gutter-r) 16px var(--gutter);border-bottom:1px solid var(--ink)}@media (max-width:860px){.rows .norow{grid-template-columns:1fr auto;gap:6px 12px}.rows .norow .lg,.rows .norow .dt{display:none}.rows .norow .ds{grid-column:1/-1}.rows .norow .ar{grid-column:2;grid-row:1}}";
-document.head.appendChild(st);
 
 /* ---------- stage wiring ---------- */
 const stages = [...document.querySelectorAll(".stage")].map((el, i, all) => {
   const name = el.dataset.scene, svg = document.getElementById("v-" + name);
   const len = parseFloat(el.dataset.len || "2");
-  el.style.height = `calc(100svh * ${1 + len})`;
-  if (el.classList.contains("play")) svg.dataset.vb = svg.getAttribute("viewBox");
   let render = () => {};
   try { render = scenes[name](svg); } catch (e) { console.error(name, e); }
-  return { el, svg, render, cur: 0, target: 0, steps: [...el.querySelectorAll(".steps li")], ghost: el.querySelector(".stage__ghost"), bar: el.querySelector(".progress i"), name: el.dataset.name, idx: i + 1, total: all.length, play: el.classList.contains("play") };
+  return { el, svg, render, cur: 0, clock: 0, dur: len * (el.classList.contains("play") ? 5 : 4.5), steps: [...el.querySelectorAll(".steps li")], ghost: el.querySelector(".stage__ghost"), bar: el.querySelector(".progress i"), name: el.dataset.name, idx: i + 1, total: all.length, play: el.classList.contains("play") };
 });
-function fitPlay() {
-  const narrow = innerWidth < 700;
-  stages.forEach(s => { if (s.play) s.svg.setAttribute("viewBox", narrow ? "240 150 720 330" : s.svg.dataset.vb); });
-}
-fitPlay(); addEventListener("resize", fitPlay);
 
 /* ---------- smooth scroll ---------- */
 let lenis = null;
@@ -1361,40 +1317,24 @@ if (!RM && window.Lenis) {
 }
 
 /* ---------- main loop ---------- */
-const hud = document.getElementById("hud"), mqEl = document.getElementById("marquee");
-let lastY = scrollY, vel = 0, mqX = 0, mqDir = -1, t0 = performance.now(), binTick = 0;
-stages.forEach(s => s.render(0, 0));
+// Each scene plays on its own while it is on screen: a slow run from 0 to 1, a pause, then again.
+let t0 = performance.now(), last = t0;
+stages.forEach(s => s.render(RM ? (s.play ? .5 : 1) : 0, 0));
 function frame(now) {
   if (lenis) lenis.raf(now);
-  const t = (now - t0) / 1000, y = scrollY, vh = innerHeight;
-  const dv = lenis ? lenis.velocity : y - lastY; lastY = y;
-  vel = lerp(vel, dv, .2);
-  // hero
+  const t = (now - t0) / 1000, dt = Math.min(.1, (now - last) / 1000), vh = innerHeight; last = now;
   const hr = cv.getBoundingClientRect();
-  if (hr.bottom > 0 && hr.top < vh) drawWaves(t, vel);
-  // marquee: drifts, follows scroll direction, skews with speed
-  if (Math.abs(dv) > .5) mqDir = dv > 0 ? -1 : 1;
-  mqX += (RM ? 0 : mqDir * 1.1) + mqDir * Math.min(Math.abs(vel), 40) * .35;
-  const half = mqEl.scrollWidth / 2; if (half) { if (mqX < -half) mqX += half; if (mqX > 0) mqX -= half; }
-  mqEl.style.transform = `translate3d(${mqX}px,0,0) skewX(${clamp(-vel * .35, -14, 14)}deg)`;
-  if (Math.abs(vel) > 2 && ++binTick % 4 === 0) { const i = Math.floor(Math.random() * binStr.length); binStr = binStr.slice(0, i) + (binStr[i] === "0" ? "1" : "0") + binStr.slice(i + 1); bin.textContent = binStr; }
-  // stages
-  let active = null;
+  if (hr.bottom > 0 && hr.top < vh) drawWaves(t);
   for (const s of stages) {
-    const r = s.el.getBoundingClientRect(), span = r.height - vh;
-    s.target = clamp(-r.top / span);
-    if (r.bottom < -vh * .2 || r.top > vh * 1.2) continue;
-    s.cur = RM ? s.target : lerp(s.cur, s.target, .14);
-    if (Math.abs(s.cur - s.target) < .0005) s.cur = s.target;
+    const r = s.el.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > vh) continue;
+    if (RM) continue;
+    s.clock = (s.clock + dt) % (s.dur + 2.5);
+    s.cur = Math.min(1, s.clock / s.dur);
     s.render(s.cur, t);
-    if (r.top <= 1 && r.bottom >= vh - 1) active = s;
-    s.bar.style.transform = `scaleX(${s.cur})`;
-    if (s.ghost) s.ghost.style.transform = `translate(${(.1 - s.cur * .9) * s.ghost.scrollWidth * .5}px,-50%)`;
     let on = 0; s.steps.forEach((li, i) => { if (s.cur >= parseFloat(li.dataset.at)) on = i; });
     s.steps.forEach((li, i) => li.classList.toggle("on", i === on));
   }
-  if (active) { hud.textContent = `${String(active.idx).padStart(2, "0")} / ${String(active.total).padStart(2, "0")} — ${active.name}`; hud.classList.add("on"); }
-  else hud.classList.remove("on");
   requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);

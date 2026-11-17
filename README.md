@@ -6,10 +6,10 @@ The whole site is one static file, [`site/index.html`](site/index.html): HTML, C
 
 ## What's on the page
 
-- **Hero:** nine animated widgets, one per project and sport. Hover one to see its label, push them around with the cursor, click one to jump to its section.
-- **Work:** each project is a pinned section. Scrolling scrubs its animation: GuacBand, the skin disease classifier, Brass Rail Poker, the AI Study Assistant and the C++ inference engine.
-- **Breaks:** cartoon tennis, sailing, windsurfing and basketball scenes between the projects.
-- **Index:** every repo and project, with links.
+- **Hero:** nine small animated widgets, one per project and sport. Hover one to see its label, click one to jump to its section.
+- **Projects:** GuacBand, the skin disease classifier, Brass Rail Poker, the AI Study Assistant and the C++ inference engine. Each demo plays on its own, on a loop, while it is on screen.
+- **Off the clock:** a grid of four cartoon cards for tennis, sailing, windsurfing and basketball.
+- **All:** every repo and project, with links.
 
 ## Run locally
 
@@ -23,7 +23,7 @@ Then open http://localhost:8000.
 
 - Copy (headings, project text, steps) is plain HTML in `site/index.html`.
 - Colors and fonts are CSS variables in the `:root` block at the top of the `<style>`. The contrast button switches to the `[data-contrast="inverse"]` palette.
-- Each project and sport animation is a function in the `scenes` object in the script. It receives scroll progress `p` from 0 to 1 and redraws its SVG.
+- Each project and sport animation is a function in the `scenes` object in the script. It receives progress `p` from 0 to 1 and redraws its SVG; the main loop advances `p` over time while the scene is on screen, with the length set by the section's `data-len`.
 - The repo list in the Index section is the `REPOS` array in the script.
 
 ## Deployment
